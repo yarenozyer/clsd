@@ -1,0 +1,60 @@
+C:1.0 kernel: linear gamma:scale
+SVM with 1,2,3 word n-grams and 3,4,5 character n-grams without crossval::::
+Ateizm Accuracy: 76.47058823529412
+Ateizm F Macro:  53.103448275862064
+İklim Değişikliği Gerçek Bir Endişe Kaynağı Accuracy: 90.990990990991
+İklim Değişikliği Gerçek Bir Endişe Kaynağı F Macro:  47.64150943396226
+Feminist Hareket Accuracy: 70.09803921568627
+Feminist Hareket F Macro:  63.81611468116658
+Hillary Clinton Accuracy: 81.4207650273224
+Hillary Clinton F Macro:  61.8936795688388
+Kürtajın Yasallaştırılması Accuracy: 82.53012048192771
+Kürtajın Yasallaştırılması F Macro:  69.28867623604465
+-------------------------------------------------------------------
+Best Parameters: {'C': 10, 'kernel': 'sigmoid'}
+
+Ateizm Accuracy: 76.47058823529412
+Ateizm F Macro:  53.103448275862064
+Ateizm F1-Score (Positive Class): 86.20689655172413
+Ateizm F1-Score (Negative Class): 20.0
+İklim Değişikliği Gerçek Bir Endişe Kaynağı Accuracy: 90.990990990991
+İklim Değişikliği Gerçek Bir Endişe Kaynağı F Macro:  47.64150943396226
+İklim Değişikliği Gerçek Bir Endişe Kaynağı F1-Score (Positive Class): 0.0
+İklim Değişikliği Gerçek Bir Endişe Kaynağı F1-Score (Negative Class): 95.28301886792453
+Feminist Hareket Accuracy: 68.62745098039215
+Feminist Hareket F Macro:  63.255656872678145
+Feminist Hareket F1-Score (Positive Class): 77.30496453900709
+Feminist Hareket F1-Score (Negative Class): 49.2063492063492
+Hillary Clinton Accuracy: 81.4207650273224
+Hillary Clinton F Macro:  66.98853989813243
+Hillary Clinton F1-Score (Positive Class): 88.81578947368422
+Hillary Clinton F1-Score (Negative Class): 45.16129032258064
+Kürtajın Yasallaştırılması Accuracy: 83.13253012048193
+Kürtajın Yasallaştırılması F Macro:  72.90111940298507
+Kürtajın Yasallaştırılması F1-Score (Positive Class): 89.55223880597015
+Kürtajın Yasallaştırılması F1-Score (Negative Class): 56.25
+
+unigram
+
+Ateizm Accuracy: 79.41176470588235
+Ateizm F Macro:  55.1789077212806
+Ateizm F1-Score (Positive Class): 88.13559322033898
+Ateizm F1-Score (Negative Class): 22.22222222222222
+İklim Değişikliği Gerçek Bir Endişe Kaynağı Accuracy: 90.990990990991
+İklim Değişikliği Gerçek Bir Endişe Kaynağı F Macro:  47.64150943396226
+İklim Değişikliği Gerçek Bir Endişe Kaynağı F1-Score (Positive Class): 0.0
+İklim Değişikliği Gerçek Bir Endişe Kaynağı F1-Score (Negative Class): 95.28301886792453
+Feminist Hareket Accuracy: 60.29411764705882
+Feminist Hareket F Macro:  54.46303083749001
+Feminist Hareket F1-Score (Positive Class): 70.7581227436823
+Feminist Hareket F1-Score (Negative Class): 38.16793893129771
+Hillary Clinton Accuracy: 78.68852459016394
+Hillary Clinton F Macro:  67.29896907216495
+Hillary Clinton F1-Score (Positive Class): 86.5979381443299
+Hillary Clinton F1-Score (Negative Class): 48.0
+Kürtajın Yasallaştırılması Accuracy: 73.49397590361446
+Kürtajın Yasallaştırılması F Macro:  64.93855606758832
+Kürtajın Yasallaştırılması F1-Score (Positive Class): 82.25806451612904
+Kürtajın Yasallaştırılması F1-Score (Negative Class): 47.61904761904761
+
+-Negative class performs really bad compared to positive except climate change. so minority class performs bad?
