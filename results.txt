@@ -190,4 +190,227 @@ Combined Ateizm F Macro: 72.54901960784315
 Combined Ateizm F1-Score (Positive Class): 86.27450980392157
 Combined Ateizm F1-Score (Negative Class): 58.82352941176471
 
--Negative class performs really bad compared to positive except climate change. so minority class performs bad?
+
+
+
+
+IBM MULTICLASS SVM WITHOUT STEMMING NGRAM
+
+Atheism Accuracy: 67.72727272727272
+Atheism F Macro:  38.880181121560426
+Atheism F1-Score (Positive Class): 81.03448275862068
+Atheism F1-Score (Negative Class): 8.333333333333332
+Atheism F1-Score (None Class): 27.27272727272727    
+Climate Change is a Real Concern Accuracy: 69.8224852071006
+Climate Change is a Real Concern F Macro:  42.25108225108225
+Climate Change is a Real Concern F1-Score (Positive Class): 0.0
+Climate Change is a Real Concern F1-Score (Negative Class): 80.0
+Climate Change is a Real Concern F1-Score (None Class): 46.75324675324675
+Feminist Movement Accuracy: 56.49122807017544
+Feminist Movement F Macro:  46.56975893884766
+Feminist Movement F1-Score (Positive Class): 67.97752808988764 
+Feminist Movement F1-Score (Negative Class): 39.473684210526315
+Feminist Movement F1-Score (None Class): 32.25806451612903
+Hillary Clinton Accuracy: 62.37288135593221
+Hillary Clinton F Macro:  50.13042247492009
+Hillary Clinton F1-Score (Positive Class): 72.68170426065163
+Hillary Clinton F1-Score (Negative Class): 31.428571428571427
+Hillary Clinton F1-Score (None Class): 46.28099173553719
+Legalization of Abortion Accuracy: 65.0
+Legalization of Abortion F Macro:  54.23341151261894
+Legalization of Abortion F1-Score (Positive Class): 75.13227513227513
+Legalization of Abortion F1-Score (Negative Class): 51.61290322580645
+Legalization of Abortion F1-Score (None Class): 35.95505617977528
+
+
+IBM MULTICLASS STEMMING NGRAM
+
+Atheism Accuracy: 68.18181818181817
+Atheism F Macro:  37.8109825362943
+Atheism F1-Score (Positive Class): 81.48148148148148
+Atheism F1-Score (Negative Class): 8.695652173913043
+Atheism F1-Score (None Class): 23.25581395348837
+Climate Change is a Real Concern Accuracy: 73.37278106508876
+Climate Change is a Real Concern F Macro:  43.61270570225794
+Climate Change is a Real Concern F1-Score (Positive Class): 0.0
+Climate Change is a Real Concern F1-Score (Negative Class): 83.07692307692308
+Climate Change is a Real Concern F1-Score (None Class): 47.76119402985074
+Feminist Movement Accuracy: 57.89473684210527
+Feminist Movement F Macro:  47.99032987369857
+Feminist Movement F1-Score (Positive Class): 69.36416184971098
+Feminist Movement F1-Score (Negative Class): 44.303797468354425
+Feminist Movement F1-Score (None Class): 30.303030303030305
+Hillary Clinton Accuracy: 63.389830508474574
+Hillary Clinton F Macro:  51.178260469985574
+Hillary Clinton F1-Score (Positive Class): 73.94540942928039
+Hillary Clinton F1-Score (Negative Class): 36.11111111111111
+Hillary Clinton F1-Score (None Class): 43.47826086956522
+Legalization of Abortion Accuracy: 66.42857142857143
+Legalization of Abortion F Macro:  57.32469901782695
+Legalization of Abortion F1-Score (Positive Class): 76.08695652173914
+Legalization of Abortion F1-Score (Negative Class): 50.526315789473685
+Legalization of Abortion F1-Score (None Class): 45.36082474226804
+
+
+IBM WO STEMMING UNIGRAM
+Atheism Accuracy: 64.0909090909091
+Atheism F Macro:  46.43014980417257
+Atheism F1-Score (Positive Class): 76.97160883280758 
+Atheism F1-Score (Negative Class): 28.985507246376812
+Atheism F1-Score (None Class): 33.33333333333333     
+Climate Change is a Real Concern Accuracy: 71.00591715976331
+Climate Change is a Real Concern F Macro:  43.65721997300945
+Climate Change is a Real Concern F1-Score (Positive Class): 0.0
+Climate Change is a Real Concern F1-Score (Negative Class): 80.97165991902834
+Climate Change is a Real Concern F1-Score (None Class): 50.0
+Feminist Movement Accuracy: 56.84210526315789
+Feminist Movement F Macro:  47.232896136121944
+Feminist Movement F1-Score (Positive Class): 69.14285714285714
+Feminist Movement F1-Score (Negative Class): 38.70967741935484
+Feminist Movement F1-Score (None Class): 33.84615384615385
+Hillary Clinton Accuracy: 56.271186440677965
+Hillary Clinton F Macro:  44.56391615170241
+Hillary Clinton F1-Score (Positive Class): 69.33333333333334
+Hillary Clinton F1-Score (Negative Class): 26.190476190476193
+Hillary Clinton F1-Score (None Class): 38.16793893129771
+Legalization of Abortion Accuracy: 55.714285714285715
+Legalization of Abortion F Macro:  43.44973398681839
+Legalization of Abortion F1-Score (Positive Class): 70.02801120448179
+Legalization of Abortion F1-Score (Negative Class): 34.234234234234236
+Legalization of Abortion F1-Score (None Class): 26.08695652173913
+
+IBM W STEMMING UNIGRAM
+Atheism Accuracy: 67.72727272727272
+Atheism F Macro:  47.94804289009987
+Atheism F1-Score (Positive Class): 80.1223241590214  
+Atheism F1-Score (Negative Class): 32.142857142857146
+Atheism F1-Score (None Class): 31.57894736842105     
+Climate Change is a Real Concern Accuracy: 66.86390532544378
+Climate Change is a Real Concern F Macro:  45.23319615912209
+Climate Change is a Real Concern F1-Score (Positive Class): 13.333333333333334
+Climate Change is a Real Concern F1-Score (Negative Class): 77.36625514403292 
+Climate Change is a Real Concern F1-Score (None Class): 45.0
+Feminist Movement Accuracy: 53.333333333333336
+Feminist Movement F Macro:  45.30736357659435
+Feminist Movement F1-Score (Positive Class): 65.08875739644971
+Feminist Movement F1-Score (Negative Class): 37.5
+Feminist Movement F1-Score (None Class): 33.33333333333333
+Hillary Clinton Accuracy: 56.949152542372886
+Hillary Clinton F Macro:  47.39253316945835
+Hillary Clinton F1-Score (Positive Class): 68.29268292682927
+Hillary Clinton F1-Score (Negative Class): 31.46067415730337
+Hillary Clinton F1-Score (None Class): 42.42424242424242
+Legalization of Abortion Accuracy: 62.142857142857146
+Legalization of Abortion F Macro:  53.82123623893727
+Legalization of Abortion F1-Score (Positive Class): 74.11764705882354
+Legalization of Abortion F1-Score (Negative Class): 47.706422018348626
+Legalization of Abortion F1-Score (None Class): 39.63963963963964
+
+IBM MULTICLASS WO STEMMING COMBINED NGRAM
+
+Combined Atheism Accuracy: 62.727272727272734
+Combined Atheism F Macro: 41.76350764709811
+Combined Atheism F1-Score (Positive Class): 77.01863354037268 
+Combined Atheism F1-Score (Negative Class): 16.129032258064516
+Combined Climate Change is a Real Concern Accuracy: 56.213017751479285
+Combined Climate Change is a Real Concern F Macro: 42.56362602619973
+Combined Climate Change is a Real Concern F1-Score (Positive Class): 17.02127659574468
+Combined Climate Change is a Real Concern F1-Score (Negative Class): 72.11538461538461
+Combined Feminist Movement Accuracy: 56.14035087719298
+Combined Feminist Movement F Macro: 49.416923395864366
+Combined Feminist Movement F1-Score (Positive Class): 66.47058823529412 
+Combined Feminist Movement F1-Score (Negative Class): 40.816326530612244
+Combined Hillary Clinton Accuracy: 61.35593220338983
+Combined Hillary Clinton F Macro: 53.33223240580188
+Combined Hillary Clinton F1-Score (Positive Class): 70.29972752043598
+Combined Hillary Clinton F1-Score (Negative Class): 36.36363636363637
+Combined Legalization of Abortion Accuracy: 64.28571428571429
+Combined Legalization of Abortion F Macro: 52.717071149654245
+Combined Legalization of Abortion F1-Score (Positive Class): 76.42276422764228
+Combined Legalization of Abortion F1-Score (Negative Class): 39.175257731958766
+
+
+
+IBM MULTICLASS STEMMING SPELL CHECKING NGRAM
+
+Atheism Accuracy: 70.45454545454545
+Atheism F Macro:  43.706841262590615
+Atheism F1-Score (Positive Class): 82.52148997134671 
+Atheism F1-Score (Negative Class): 13.043478260869565
+Atheism F1-Score (None Class): 35.55555555555556     
+Climate Change is a Real Concern Accuracy: 72.7810650887574
+Climate Change is a Real Concern F Macro:  43.687233648323144
+Climate Change is a Real Concern F1-Score (Positive Class): 0.0
+Climate Change is a Real Concern F1-Score (Negative Class): 82.49027237354085
+Climate Change is a Real Concern F1-Score (None Class): 48.57142857142857    
+Feminist Movement Accuracy: 57.54385964912281
+Feminist Movement F Macro:  48.180384293526686
+Feminist Movement F1-Score (Positive Class): 68.78612716763006
+Feminist Movement F1-Score (Negative Class): 43.87096774193549
+Feminist Movement F1-Score (None Class): 31.88405797101449    
+Hillary Clinton Accuracy: 65.42372881355932
+Hillary Clinton F Macro:  52.759234251720464
+Hillary Clinton F1-Score (Positive Class): 75.79462102689487
+Hillary Clinton F1-Score (Negative Class): 38.23529411764706
+Hillary Clinton F1-Score (None Class): 44.24778761061947
+Legalization of Abortion Accuracy: 66.78571428571428
+Legalization of Abortion F Macro:  57.228858408209405
+Legalization of Abortion F1-Score (Positive Class): 76.54986522911051
+Legalization of Abortion F1-Score (Negative Class): 49.48453608247423
+Legalization of Abortion F1-Score (None Class): 45.65217391304348
+
+
+
+IBM MULTICLASS STEMMING SPELL CHECKING UNIGRAM
+
+Atheism Accuracy: 66.81818181818183
+Atheism F Macro:  47.232865048957
+Atheism F1-Score (Positive Class): 79.62962962962963
+Atheism F1-Score (Negative Class): 31.03448275862069
+Atheism F1-Score (None Class): 31.03448275862069    
+Climate Change is a Real Concern Accuracy: 66.27218934911244
+Climate Change is a Real Concern F Macro:  48.5230352303523
+Climate Change is a Real Concern F1-Score (Positive Class): 25.0
+Climate Change is a Real Concern F1-Score (Negative Class): 76.66666666666667
+Climate Change is a Real Concern F1-Score (None Class): 43.90243902439025    
+Feminist Movement Accuracy: 54.385964912280706
+Feminist Movement F Macro:  46.63770287391313
+Feminist Movement F1-Score (Positive Class): 66.26865671641791
+Feminist Movement F1-Score (Negative Class): 38.50931677018634
+Feminist Movement F1-Score (None Class): 35.13513513513514    
+Hillary Clinton Accuracy: 58.644067796610166
+Hillary Clinton F Macro:  48.73088702348631
+Hillary Clinton F1-Score (Positive Class): 70.24128686327077
+Hillary Clinton F1-Score (Negative Class): 34.090909090909086
+Hillary Clinton F1-Score (None Class): 41.86046511627907
+Legalization of Abortion Accuracy: 62.142857142857146
+Legalization of Abortion F Macro:  53.610088087485295
+Legalization of Abortion F1-Score (Positive Class): 73.83720930232558
+Legalization of Abortion F1-Score (Negative Class): 45.87155963302752
+Legalization of Abortion F1-Score (None Class): 41.1214953271028
+
+Combined Atheism Accuracy: 62.272727272727266
+Combined Atheism F Macro: 44.95698208887713
+Combined Atheism F1-Score (Positive Class): 75.39936102236422
+Combined Atheism F1-Score (Negative Class): 27.11864406779661
+Combined Climate Change is a Real Concern Accuracy: 57.396449704142015
+Combined Climate Change is a Real Concern F Macro: 44.02243644610085
+Combined Climate Change is a Real Concern F1-Score (Positive Class): 19.607843137254903
+Combined Climate Change is a Real Concern F1-Score (Negative Class): 72.98578199052133 
+Combined Feminist Movement Accuracy: 56.49122807017544
+Combined Feminist Movement F Macro: 51.98765030090331
+Combined Feminist Movement F1-Score (Positive Class): 65.66265060240963 
+Combined Feminist Movement F1-Score (Negative Class): 39.189189189189186
+Combined Hillary Clinton Accuracy: 59.32203389830508
+Combined Hillary Clinton F Macro: 50.31671227323401
+Combined Hillary Clinton F1-Score (Positive Class): 69.23076923076923
+Combined Hillary Clinton F1-Score (Negative Class): 29.545454545454547
+Combined Legalization of Abortion Accuracy: 64.28571428571429
+Combined Legalization of Abortion F Macro: 55.04117557382162
+Combined Legalization of Abortion F1-Score (Positive Class): 76.35327635327636
+Combined Legalization of Abortion F1-Score (Negative Class): 39.285714285714285
+
+
+IBM NGRAM SPELLING
+
+

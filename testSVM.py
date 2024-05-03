@@ -5,17 +5,23 @@ import string
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import GridSearchCV 
 from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score, f1_score
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 import pandas as pd
-import nltk
+from transformers import MarianMTModel, MarianTokenizer
+from zemberek import TurkishSpellChecker, TurkishMorphology, TurkishSentenceNormalizer
 
 stemmer = TurkishStemmer()
 
+morphology = TurkishMorphology.create_with_defaults()
+normalizer = TurkishSentenceNormalizer(morphology)
+spell_checker = TurkishSpellChecker(morphology)
+
+favor = []
+against = []
+
 def detect_stopwords():
-    #print("Detecting stopwords")
     stopwords_df = pd.read_csv('turkish', header=None)
     stop_words = stopwords_df[0].tolist()
-    #stop_words = stopwords.words('turkish')
     stop_words.extend(string.punctuation)
     stop_words.extend(["vs.", "vb.", "a", "i", "e", "rt", "#semst", "semst"])
     stop_words = set(stop_words)
@@ -23,12 +29,13 @@ def detect_stopwords():
     
     
 def tokenize_tweet(tweet):
+    #tweet = normalizer.normalize(tweet)
     tokens = word_tokenize(tweet)
-    stop_words = []
+    stop_words = detect_stopwords()
     normalized_tokens = [token.lower() for token in tokens]
     filtered_tokens = [token for token in normalized_tokens if (token not in stop_words and not token.startswith("http"))]
-    #filtered_tokens = [stemmer.stemWord(token) for token in filtered_tokens]
-    
+    filtered_tokens = [stemmer.stemWord(token) for token in filtered_tokens]
+    #filtered_tokens = [morphology.analyze(token).analysis_results[1]]
     return filtered_tokens
 
 def extract_features_tfidf_ngram(train_tweets, test_tweets):
@@ -50,9 +57,8 @@ def extract_features_tfidf_unigram(train_tweets, test_tweets):
     
     return word_train_features.toarray(), word_test_features.toarray()
     
-def t_tweets(file):
-    #print("Reading File")
-    df = pd.read_csv(file, encoding='windows-1254')
+def t_tweets(file, encoding):
+    df = pd.read_csv(file, encoding = encoding)
     
     tweets_by_target = {}
     stances_by_target = {}
@@ -80,7 +86,7 @@ def svm_for_target(tweets_train, stances_train, tweets_test, stances_test, targe
     tokenized_train = [tokenize_tweet(tweet) for tweet in subtweets_train]
     tokenized_test = [tokenize_tweet(tweet) for tweet in subtweets_test]
     
-    train_features, test_features = extract_features_tfidf_ngram(tokenized_train, tokenized_test)
+    train_features, test_features = extract_features_tfidf_unigram(tokenized_train, tokenized_test)
 
     # Train SVM with the best parameters
     svm_classifier = SVC(kernel='sigmoid', C=10)
@@ -89,29 +95,34 @@ def svm_for_target(tweets_train, stances_train, tweets_test, stances_test, targe
     #print("Evaluating Results")
     stance_pred = svm_classifier.predict(test_features)
     accuracy = accuracy_score(substances_test, stance_pred)
+    # precision = precision_score(substances_test, stance_pred, pos_label=)
+    # recall = recall_score(substances_test, stance_pred)
+    # f1_positive = (2 * precision * recall ) / (precision + recall)
+    
     f_macro = f1_score(substances_test, stance_pred, average='macro')
     f1_positive = f1_score(substances_test, stance_pred, average=None)[0]  # Positive class
     f1_negative = f1_score(substances_test, stance_pred, average=None)[1]  # Negative class
-    
+    f1_none = f1_score(substances_test, stance_pred, average=None)[2]  # Negative class
+    favor.append(f1_positive)
+    against.append(f1_negative)
     print(target + " Accuracy:", accuracy*100)
     print(target + " F Macro: ", f_macro*100)
     print(target + " F1-Score (Positive Class):", f1_positive * 100)
     print(target + " F1-Score (Negative Class):", f1_negative * 100)
-
+    print(target + " F1-Score (None Class):", f1_none * 100)
 
 def svm_all_targets(tweets_train, tweets_test, stances_train, stances_test, targets):
         
     print("Training")
     tokenized_train = [tokenize_tweet(tweet) for tweet in tweets_train]
-    #tokenized_test = [tokenize_tweet(tweet) for tweet in tweets_test]
     
-    tfidf_vectorizer = TfidfVectorizer(ngram_range=(1, 3), analyzer='word')
+    tfidf_vectorizer = TfidfVectorizer(ngram_range=(1, 1), analyzer='word')
     word_train_features = tfidf_vectorizer.fit_transform([' '.join(tokens) for tokens in tokenized_train])
 
-    char_tfidf_vectorizer = TfidfVectorizer(ngram_range=(2, 5), analyzer='char')
-    char_train_features = char_tfidf_vectorizer.fit_transform([' '.join(tokens) for tokens in tokenized_train])
+    #char_tfidf_vectorizer = TfidfVectorizer(ngram_range=(2, 5), analyzer='char')
+    #char_train_features = char_tfidf_vectorizer.fit_transform([' '.join(tokens) for tokens in tokenized_train])
     
-    train_features = np.concatenate((word_train_features.toarray(), char_train_features.toarray()), axis=1)
+    train_features = word_train_features.toarray()
     
     svm_classifier = SVC(kernel='sigmoid', C=10)
     svm_classifier.fit(train_features, stances_train)
@@ -122,15 +133,16 @@ def svm_all_targets(tweets_train, tweets_test, stances_train, stances_test, targ
         substances= stances_test[target]
         tokenized_subtest = [tokenize_tweet(tweet) for tweet in subtweets]
         word_test_features = tfidf_vectorizer.transform([' '.join(tokens) for tokens in tokenized_subtest])
-        char_test_features = char_tfidf_vectorizer.transform([' '.join(tokens) for tokens in tokenized_subtest])
+        #char_test_features = char_tfidf_vectorizer.transform([' '.join(tokens) for tokens in tokenized_subtest])
         
-        test_features = np.concatenate((word_test_features.toarray(), char_test_features.toarray()), axis=1)
+        test_features = word_test_features.toarray()
         
         stance_pred = svm_classifier.predict(test_features)
         accuracy = accuracy_score(substances, stance_pred)
         f_macro = f1_score(substances, stance_pred, average='macro')
         f1_positive = f1_score(substances, stance_pred, average=None)[0]  # Positive class
         f1_negative = f1_score(substances, stance_pred, average=None)[1]  # Negative class
+        f1_none = f1_score(substances, stance_pred, average=None)[2]  # Negative class
     
         print(f"Combined {target} Accuracy: {accuracy * 100}")
         print(f"Combined {target} F Macro: {f_macro*100}")
@@ -151,19 +163,46 @@ def tune_svm(features, stances):
     svm_classifier = SVC(**best_params)
     return svm_classifier  
 
-tweets_train, stances_train, all_tweets_train, all_stances_train = t_tweets('translated_train_without_none.csv')
 
-tweets_test, stances_test, all_tweets_test, all_stances_test = t_tweets('translated_test_without_none.csv')
+def translate(texts, model, tokenizer, language):
+    """Translate texts into a target language"""
+    # Format the text as expected by the model
+    
+    formatter_fn = lambda txt: f"{txt}" if language == "en" else f">>{language}<< {txt}"
+    original_texts = [formatter_fn(txt) for txt in texts]
 
-# svm_for_target(tweets_train, stances_train, tweets_test, stances_test, "Ateizm")
-# svm_for_target(tweets_train, stances_train, tweets_test, stances_test, "İklim Değişikliği Gerçek Bir Endişe Kaynağı")
-# svm_for_target(tweets_train, stances_train, tweets_test, stances_test, "Feminist Hareket")
-# svm_for_target(tweets_train, stances_train, tweets_test, stances_test, "Hillary Clinton")
-# svm_for_target(tweets_train, stances_train, tweets_test, stances_test, "Kürtajın Yasallaştırılması")
+    # Tokenize (text to tokens)
+    inputs = tokenizer(original_texts, return_tensors="pt", padding=True, truncation=True)
 
-targets = ["Ateizm", "İklim Değişikliği Gerçek Bir Endişe Kaynağı", "Feminist Hareket", "Hillary Clinton", "Kürtajın Yasallaştırılması"]
+    # Translate
+    translated = model.generate(**inputs)
 
-svm_all_targets(all_tweets_train, tweets_test , all_stances_train, stances_test, targets)
+    # Decode (tokens to text)
+    translated_texts = tokenizer.batch_decode(translated, skip_special_tokens=True, clean_up_tokenization_spaces=True)
 
-#print(stemmer.stemWord("istiyorum"))
-#print(stemmer.stemWord("istemiyorum"))
+    return translated_texts
+
+def download(model_name):
+  tokenizer = MarianTokenizer.from_pretrained(model_name)
+  model = MarianMTModel.from_pretrained(model_name)
+  return tokenizer, model
+   
+
+# download model for English -> Romance
+#tmp_lang_tokenizer, tmp_lang_model = download("Helsinki-NLP/opus-mt-en-trk")
+
+
+tweets_train, stances_train, all_tweets_train, all_stances_train = t_tweets('IBM_train.csv', "ANSI")
+
+tweets_test, stances_test, all_tweets_test, all_stances_test = t_tweets('IBM_test.csv', "ANSI")
+
+svm_for_target(tweets_train, stances_train, tweets_test, stances_test, "Atheism")
+svm_for_target(tweets_train, stances_train, tweets_test, stances_test, "Climate Change is a Real Concern")
+svm_for_target(tweets_train, stances_train, tweets_test, stances_test, "Feminist Movement")
+svm_for_target(tweets_train, stances_train, tweets_test, stances_test, "Hillary Clinton")
+svm_for_target(tweets_train, stances_train, tweets_test, stances_test, "Legalization of Abortion")
+
+    
+print("F AVG = ", (sum(favor)/len(favor) + sum(against)/len(against))/2)
+# targets = ["Atheism", "Climate Change is a Real Concern", "Feminist Movement", "Hillary Clinton", "Legalization of Abortion"]
+# svm_all_targets(all_tweets_train, tweets_test , all_stances_train, stances_test, targets)
