@@ -18,6 +18,7 @@ spell_checker = TurkishSpellChecker(morphology)
 
 favor = []
 against = []
+predicted = []
 
 def detect_stopwords():
     stopwords_df = pd.read_csv('turkish', header=None)
@@ -29,13 +30,12 @@ def detect_stopwords():
     
     
 def tokenize_tweet(tweet):
-    #tweet = normalizer.normalize(tweet)
+    tweet = normalizer.normalize(tweet)
     tokens = word_tokenize(tweet)
     stop_words = detect_stopwords()
     normalized_tokens = [token.lower() for token in tokens]
     filtered_tokens = [token for token in normalized_tokens if (token not in stop_words and not token.startswith("http"))]
-    filtered_tokens = [stemmer.stemWord(token) for token in filtered_tokens]
-    #filtered_tokens = [morphology.analyze(token).analysis_results[1]]
+    #filtered_tokens = [stemmer.stemWord(token) for token in filtered_tokens]
     return filtered_tokens
 
 def extract_features_tfidf_ngram(train_tweets, test_tweets):
@@ -86,7 +86,7 @@ def svm_for_target(tweets_train, stances_train, tweets_test, stances_test, targe
     tokenized_train = [tokenize_tweet(tweet) for tweet in subtweets_train]
     tokenized_test = [tokenize_tweet(tweet) for tweet in subtweets_test]
     
-    train_features, test_features = extract_features_tfidf_unigram(tokenized_train, tokenized_test)
+    train_features, test_features = extract_features_tfidf_ngram(tokenized_train, tokenized_test)
 
     # Train SVM with the best parameters
     svm_classifier = SVC(kernel='sigmoid', C=10)
@@ -96,21 +96,21 @@ def svm_for_target(tweets_train, stances_train, tweets_test, stances_test, targe
     stance_pred = svm_classifier.predict(test_features)
     accuracy = accuracy_score(substances_test, stance_pred)
     # precision = precision_score(substances_test, stance_pred, pos_label=)
-    # recall = recall_score(substances_test, stance_pred)
+    
     # f1_positive = (2 * precision * recall ) / (precision + recall)
     
     f_macro = f1_score(substances_test, stance_pred, average='macro')
     f1_positive = f1_score(substances_test, stance_pred, average=None)[0]  # Positive class
     f1_negative = f1_score(substances_test, stance_pred, average=None)[1]  # Negative class
     f1_none = f1_score(substances_test, stance_pred, average=None)[2]  # Negative class
+    predicted.extend(stance_pred)
     favor.append(f1_positive)
     against.append(f1_negative)
     print(target + " Accuracy:", accuracy*100)
     print(target + " F Macro: ", f_macro*100)
-    print(target + " F1-Score (Positive Class):", f1_positive * 100)
-    print(target + " F1-Score (Negative Class):", f1_negative * 100)
+    print(target + " F1-Score (Negative Class):", f1_positive * 100)
+    print(target + " F1-Score (Positive Class):", f1_negative * 100)
     print(target + " F1-Score (None Class):", f1_none * 100)
-
 def svm_all_targets(tweets_train, tweets_test, stances_train, stances_test, targets):
         
     print("Training")
@@ -202,7 +202,17 @@ svm_for_target(tweets_train, stances_train, tweets_test, stances_test, "Feminist
 svm_for_target(tweets_train, stances_train, tweets_test, stances_test, "Hillary Clinton")
 svm_for_target(tweets_train, stances_train, tweets_test, stances_test, "Legalization of Abortion")
 
+precision_pos = precision_score(all_stances_test, predicted, labels=["FAVOR"], average="macro")
+recall_pos = recall_score(all_stances_test, predicted, labels=["FAVOR"], average="macro")
+f_calculated_pos = (2*precision_pos*recall_pos) /(precision_pos + recall_pos)
+
+precision_neg = precision_score(all_stances_test, predicted, labels=["AGAINST"], average="macro")
+recall_neg = recall_score(all_stances_test, predicted, labels=["AGAINST"], average="macro")
+f_calculated_neg = (2*precision_neg*recall_neg) /(precision_neg + recall_neg)
     
-print("F AVG = ", (sum(favor)/len(favor) + sum(against)/len(against))/2)
+print("F_FAV = ", f_calculated_pos *100)
+print("F_NEG = ", f_calculated_neg*100)
+print("F_AVG = ", (f_calculated_pos + f_calculated_neg)*50)
+
 # targets = ["Atheism", "Climate Change is a Real Concern", "Feminist Movement", "Hillary Clinton", "Legalization of Abortion"]
 # svm_all_targets(all_tweets_train, tweets_test , all_stances_train, stances_test, targets)
