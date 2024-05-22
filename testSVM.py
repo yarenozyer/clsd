@@ -16,8 +16,6 @@ morphology = TurkishMorphology.create_with_defaults()
 normalizer = TurkishSentenceNormalizer(morphology)
 spell_checker = TurkishSpellChecker(morphology)
 
-favor = []
-against = []
 predicted = []
 
 def detect_stopwords():
@@ -35,7 +33,7 @@ def tokenize_tweet(tweet):
     stop_words = detect_stopwords()
     normalized_tokens = [token.lower() for token in tokens]
     filtered_tokens = [token for token in normalized_tokens if (token not in stop_words and not token.startswith("http"))]
-    #filtered_tokens = [stemmer.stemWord(token) for token in filtered_tokens]
+    filtered_tokens = [stemmer.stemWord(token) for token in filtered_tokens]
     return filtered_tokens
 
 def extract_features_tfidf_ngram(train_tweets, test_tweets):
@@ -91,26 +89,24 @@ def svm_for_target(tweets_train, stances_train, tweets_test, stances_test, targe
     # Train SVM with the best parameters
     svm_classifier = SVC(kernel='sigmoid', C=10)
     svm_classifier.fit(train_features, substances_train)
+   # svm_classifier = tune_svm(train_features, substances_train)
     
     #print("Evaluating Results")
     stance_pred = svm_classifier.predict(test_features)
     accuracy = accuracy_score(substances_test, stance_pred)
-    # precision = precision_score(substances_test, stance_pred, pos_label=)
-    
-    # f1_positive = (2 * precision * recall ) / (precision + recall)
     
     f_macro = f1_score(substances_test, stance_pred, average='macro')
-    f1_positive = f1_score(substances_test, stance_pred, average=None)[0]  # Positive class
-    f1_negative = f1_score(substances_test, stance_pred, average=None)[1]  # Negative class
-    f1_none = f1_score(substances_test, stance_pred, average=None)[2]  # Negative class
+    # f1_positive = f1_score(substances_test, stance_pred, average=None)[0]  # Positive class
+    # f1_negative = f1_score(substances_test, stance_pred, average=None)[1]  # Negative class
+    # f1_none = f1_score(substances_test, stance_pred, average=None)[2]  # Negative class
+    
     predicted.extend(stance_pred)
-    favor.append(f1_positive)
-    against.append(f1_negative)
     print(target + " Accuracy:", accuracy*100)
     print(target + " F Macro: ", f_macro*100)
-    print(target + " F1-Score (Negative Class):", f1_positive * 100)
-    print(target + " F1-Score (Positive Class):", f1_negative * 100)
-    print(target + " F1-Score (None Class):", f1_none * 100)
+    # print(target + " F1-Score (Negative Class):", f1_positive * 100)
+    # print(target + " F1-Score (Positive Class):", f1_negative * 100)
+    # print(target + " F1-Score (None Class):", f1_none * 100)
+    
 def svm_all_targets(tweets_train, tweets_test, stances_train, stances_test, targets):
         
     print("Training")
@@ -119,13 +115,13 @@ def svm_all_targets(tweets_train, tweets_test, stances_train, stances_test, targ
     tfidf_vectorizer = TfidfVectorizer(ngram_range=(1, 1), analyzer='word')
     word_train_features = tfidf_vectorizer.fit_transform([' '.join(tokens) for tokens in tokenized_train])
 
-    #char_tfidf_vectorizer = TfidfVectorizer(ngram_range=(2, 5), analyzer='char')
-    #char_train_features = char_tfidf_vectorizer.fit_transform([' '.join(tokens) for tokens in tokenized_train])
-    
-    train_features = word_train_features.toarray()
+    char_tfidf_vectorizer = TfidfVectorizer(ngram_range=(2, 5), analyzer='char')
+    char_train_features = char_tfidf_vectorizer.fit_transform([' '.join(tokens) for tokens in tokenized_train])
+    train_features = np.concatenate((word_train_features.toarray(), char_train_features.toarray()), axis=1)
     
     svm_classifier = SVC(kernel='sigmoid', C=10)
     svm_classifier.fit(train_features, stances_train)
+    
     
     print("Evaluating Results")
     for target in targets:
@@ -133,28 +129,30 @@ def svm_all_targets(tweets_train, tweets_test, stances_train, stances_test, targ
         substances= stances_test[target]
         tokenized_subtest = [tokenize_tweet(tweet) for tweet in subtweets]
         word_test_features = tfidf_vectorizer.transform([' '.join(tokens) for tokens in tokenized_subtest])
-        #char_test_features = char_tfidf_vectorizer.transform([' '.join(tokens) for tokens in tokenized_subtest])
         
-        test_features = word_test_features.toarray()
+        char_test_features = char_tfidf_vectorizer.transform([' '.join(tokens) for tokens in tokenized_subtest])
+        test_features = np.concatenate((word_test_features.toarray(), char_test_features.toarray()), axis=1)
         
         stance_pred = svm_classifier.predict(test_features)
         accuracy = accuracy_score(substances, stance_pred)
         f_macro = f1_score(substances, stance_pred, average='macro')
-        f1_positive = f1_score(substances, stance_pred, average=None)[0]  # Positive class
-        f1_negative = f1_score(substances, stance_pred, average=None)[1]  # Negative class
-        f1_none = f1_score(substances, stance_pred, average=None)[2]  # Negative class
-    
+        #f1_positive = f1_score(substances, stance_pred, average=None)[0]  # Positive class
+        #f1_negative = f1_score(substances, stance_pred, average=None)[1]  # Negative class
+        predicted.extend(stance_pred)
         print(f"Combined {target} Accuracy: {accuracy * 100}")
         print(f"Combined {target} F Macro: {f_macro*100}")
-        print(f"Combined {target} F1-Score (Positive Class): {f1_positive * 100}")
-        print(f"Combined {target} F1-Score (Negative Class): {f1_negative * 100}")
+        # print(f"Combined {target} F1-Score (Positive Class): {f1_positive * 100}")
+        # print(f"Combined {target} F1-Score (Negative Class): {f1_negative * 100}")
   
 def tune_svm(features, stances):
     param_grid = {
-        'C': [0.1, 1, 10, 100],
-        'kernel': ['rbf', 'linear', 'poly', 'sigmoid']
+        'C': [0.1, 1, 10, 100, 1000],
+        'kernel': ['rbf', 'linear', 'poly', 'sigmoid'],
+        'gamma': ['scale', 'auto', 0.001, 0.01, 0.1],
+        'degree': [2, 3, 4],
+        'coef0': [0.0, 0.1, 0.5]
     }
-    
+
     grid_search = GridSearchCV(SVC(), param_grid, refit=True, verbose=3)
     grid_search.fit(features, stances)
 
@@ -192,15 +190,21 @@ def download(model_name):
 #tmp_lang_tokenizer, tmp_lang_model = download("Helsinki-NLP/opus-mt-en-trk")
 
 
-tweets_train, stances_train, all_tweets_train, all_stances_train = t_tweets('IBM_train.csv', "ANSI")
+tweets_train, stances_train, all_tweets_train, all_stances_train = t_tweets('gpt_train.csv', "ANSI")
 
-tweets_test, stances_test, all_tweets_test, all_stances_test = t_tweets('IBM_test.csv', "ANSI")
+tweets_test, stances_test, all_tweets_test, all_stances_test = t_tweets('gpt_test.csv', "ANSI")
+
 
 svm_for_target(tweets_train, stances_train, tweets_test, stances_test, "Atheism")
 svm_for_target(tweets_train, stances_train, tweets_test, stances_test, "Climate Change is a Real Concern")
 svm_for_target(tweets_train, stances_train, tweets_test, stances_test, "Feminist Movement")
 svm_for_target(tweets_train, stances_train, tweets_test, stances_test, "Hillary Clinton")
 svm_for_target(tweets_train, stances_train, tweets_test, stances_test, "Legalization of Abortion")
+
+
+
+# targets = ["Atheism", "Climate Change is a Real Concern", "Feminist Movement", "Hillary Clinton", "Legalization of Abortion"]
+# svm_all_targets(all_tweets_train, tweets_test , all_stances_train, stances_test, targets)
 
 precision_pos = precision_score(all_stances_test, predicted, labels=["FAVOR"], average="macro")
 recall_pos = recall_score(all_stances_test, predicted, labels=["FAVOR"], average="macro")
@@ -213,6 +217,3 @@ f_calculated_neg = (2*precision_neg*recall_neg) /(precision_neg + recall_neg)
 print("F_FAV = ", f_calculated_pos *100)
 print("F_NEG = ", f_calculated_neg*100)
 print("F_AVG = ", (f_calculated_pos + f_calculated_neg)*50)
-
-# targets = ["Atheism", "Climate Change is a Real Concern", "Feminist Movement", "Hillary Clinton", "Legalization of Abortion"]
-# svm_all_targets(all_tweets_train, tweets_test , all_stances_train, stances_test, targets)
