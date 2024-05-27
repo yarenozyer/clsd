@@ -1,140 +1,155 @@
-import nltk
 from nltk.corpus import wordnet
 from nltk.corpus import stopwords
 import random
 import pandas as pd
 
-
-    
-
-def create_augmented_dataset(file_path):
+stop_words = set(stopwords.words('english'))
+def create_augmented_dataset(file_path, output_path):
     # Read existing data from the CSV file
-    existing_data = pd.read_csv(file_path, encoding = 'ANSI')
+    existing_data = pd.read_csv(file_path, encoding='ANSI')
     all_tweets = existing_data["Tweet"].to_list()
     all_targets = existing_data["Target"].to_list()
     all_stances = existing_data["Stance"].to_list()
     alpha = 0.05
-    new_data =[]
     new_tweets = []
     new_targets = []
     new_stances = []
+    operations = []
     tweet_count = len(all_tweets)
+
+    operation_choice = ['SR', 'RI', 'RS', 'RD']
+
     for i in range(tweet_count):
-        new_tweets.append(eda_SR(all_tweets[i], int(len(all_tweets[i])*alpha)))
-        new_targets.append(all_targets[i])
-        new_stances.append(all_stances[i])
-        
-    new_data.append(new_tweets)
-    new_data.append(new_targets)
-    new_data.append(new_stances)
-    # Convert new data to a DataFrame
-    new_data_df = pd.DataFrame(new_data, columns=existing_data.columns)
+        original_tweet = all_tweets[i]
+        split_sentence = original_tweet.split()
+        split_sentence_copy = split_sentence.copy()
+        n = round(len(original_tweet.split()) * alpha)
+        for op_index in range(8):
+            operation = operation_choice[op_index % 4]
+            if operation == 'SR':
+                new_tweet = eda_SR(split_sentence_copy, n)
+            elif operation == 'RI':
+                new_tweet = eda_RI(split_sentence_copy, n)
+            elif operation == 'RS':
+                new_tweet = eda_RS(split_sentence_copy, n)
+            elif operation == 'RD':
+                new_tweet = eda_RD(split_sentence_copy, alpha)
+            
+            new_tweets.append(new_tweet)
+            new_targets.append(all_targets[i])
+            new_stances.append(all_stances[i])
+            operations.append(operation)
 
-    # Concatenate existing data with new data
-    combined_data = pd.concat([existing_data, new_data_df], ignore_index=True)
-
-    # Write the combined data back to the CSV file
-    combined_data.to_csv(file_path, index=False)
-
-
-def eda_SR(originalSentence, n):
-
-  stops = set(stopwords.words('english'))
-  splitSentence = list(originalSentence.split(" "))
-  splitSentenceCopy = splitSentence.copy()
-  
-  ls_nonStopWordIndexes = []
-  for i in range(len(splitSentence)):
-    if splitSentence[i].lower() not in stops:
-      ls_nonStopWordIndexes.append(i)
-  if (n > len(ls_nonStopWordIndexes)):
-    raise Exception("The number of replacements exceeds the number of non stop word words")
-  for i in range(n):
-    indexChosen = random.choice(ls_nonStopWordIndexes)
-    ls_nonStopWordIndexes.remove(indexChosen)
-    synonyms = []
-    originalWord = splitSentenceCopy[indexChosen]
-    for synset in wordnet.synsets(originalWord):
-      for lemma in synset.lemmas():
-        if lemma.name() != originalWord:
-          synonyms.append(lemma.name())
-    if (synonyms == []):
-      continue
-    splitSentence[indexChosen] = random.choice(synonyms).replace('_', ' ')
-  return " ".join(splitSentence)
-     
-
-print(eda_SR("I love to play football", 2))
-
-def eda_RI(originalSentence, n):
-  stops = set(stopwords.words('english'))
-  splitSentence = list(originalSentence.split(" "))
-  splitSentenceCopy = splitSentence.copy() 
-  # Since We Make Changes to The Original Sentence List The Indexes Change and Hence an initial copy proves useful to get values
-  ls_nonStopWordIndexes = []
-  for i in range(len(splitSentence)):
-    if splitSentence[i].lower() not in stops:
-      ls_nonStopWordIndexes.append(i)
-  if (n > len(ls_nonStopWordIndexes)):
-    raise Exception("The number of replacements exceeds the number of non stop word words")
-  WordCount = len(splitSentence)
-  for i in range(n):
-    indexChosen = random.choice(ls_nonStopWordIndexes)
-    ls_nonStopWordIndexes.remove(indexChosen)
-    synonyms = []
-    originalWord = splitSentenceCopy[indexChosen]
-    for synset in wordnet.synsets(originalWord):
-      for lemma in synset.lemmas():
-        if lemma.name() != originalWord:
-          synonyms.append(lemma.name())
-    if (synonyms == []):
-      continue
-    splitSentence.insert(random.randint(0,WordCount-1), random.choice(synonyms).replace('_', ' '))
-  return " ".join(splitSentence)
-     
-
-
-
-def eda_RS(originalSentence, n):
+    # Combine new data into a DataFrame
+    new_data_df = pd.DataFrame({
+        "Tweet": new_tweets,
+        "Target": new_targets,
+        "Stance": new_stances,
+        "Operation": operations
+    })
     
-  splitSentence = list(originalSentence.split(" "))
-  WordCount = len(splitSentence)
-  for i in range(n):
-    firstIndex = random.randint(0,WordCount-1)
-    secondIndex = random.randint(0,WordCount-1)
-    while (secondIndex == firstIndex and WordCount != 1):
-      secondIndex = random.randint(0,WordCount-1)
-    splitSentence[firstIndex], splitSentence[secondIndex] = splitSentence[secondIndex], splitSentence[firstIndex]
-  return " ".join(splitSentence)
-     
+
+    # Write the new data to a new CSV file
+    new_data_df.to_csv(output_path, index=False)
+            
+
+def eda_SR(words, n):
+    new_words = words.copy()
+    random_word_list = list(set([word for word in words if word not in stop_words]))
+    random.shuffle(random_word_list)
+    num_replaced = 0
+    for random_word in random_word_list:
+        synonyms = get_synonyms(random_word)
+        if len(synonyms) >= 1:
+            synonym = random.choice(list(synonyms))
+            new_words = [synonym if word == random_word else word for word in new_words]
+            num_replaced += 1
+        if num_replaced >= n: #only replace up to n words
+            break
+
+    #this is stupid but we need it, trust me
+    sentence = ' '.join(new_words)
+    return sentence
+
+def get_synonyms(word):
+    synonyms = set()
+    for syn in wordnet.synsets(word): 
+        for l in syn.lemmas(): 
+            synonym = l.name().replace("_", " ").replace("-", " ").lower()
+            synonym = "".join([char for char in synonym if char in ' qwertyuiopasdfghjklzxcvbnm'])
+            synonyms.add(synonym) 
+    if word in synonyms:
+        synonyms.remove(word)
+    return list(synonyms)
+
+def eda_RD(words, p):
+
+    #obviously, if there's only one word, don't delete it
+    if len(words) == 1:
+        return words
+
+    #randomly delete words with probability p
+    new_words = []
+    for word in words:
+        r = random.uniform(0, 1)
+        if r > p:
+            new_words.append(word)
+
+    #if you end up deleting all words, just return a random word
+    if len(new_words) == 0:
+        rand_int = random.randint(0, len(words)-1)
+        return [words[rand_int]]
+
+    sentence = ' '.join(new_words)
+    return sentence
 
 
+def eda_RS(words, n):
+    new_words = words.copy()
+    for _ in range(n):
+        new_words = swap_word(new_words)
+        
+    sentence = ' '.join(new_words)
+    return sentence
 
-def eda_RD(originalSentence, p):
-  og = originalSentence
-  if (p == 1):
-      raise Exception("Always an Empty String Will Be Returned") 
-  if (p > 1 or p < 0):
-    raise Exception("Improper Probability Value")
-  splitSentence = list(originalSentence.split(" "))
-  lsIndexesRemoved = []
-  WordCount = len(splitSentence)
-  for i in range(WordCount):
-    randomDraw = random.random()
-    if randomDraw <= p:
-      lsIndexesRemoved.append(i)
-  lsRetainingWords = []
-  for i in range(len(splitSentence)):
-    if i not in lsIndexesRemoved:
-      lsRetainingWords.append(splitSentence[i])
-  if (lsRetainingWords == []):
-    return og
-  return " ".join(lsRetainingWords)
+def swap_word(new_words):
+    random_idx_1 = random.randint(0, len(new_words)-1)
+    random_idx_2 = random_idx_1
+    counter = 0
+    while random_idx_2 == random_idx_1:
+        random_idx_2 = random.randint(0, len(new_words)-1)
+        counter += 1
+        if counter > 3:
+            return new_words
+    new_words[random_idx_1], new_words[random_idx_2] = new_words[random_idx_2], new_words[random_idx_1] 
+    return new_words
+
+def eda_RI(words, n):
+    new_words = words.copy()
+    for _ in range(n):
+        add_word(new_words)
+        
+    sentence = ' '.join(new_words)
+    return sentence
+
+def add_word(new_words):
+    synonyms = []
+    counter = 0
+    while len(synonyms) < 1:
+        random_word = new_words[random.randint(0, len(new_words)-1)]
+        synonyms = get_synonyms(random_word)
+        counter += 1
+        if counter >= 10:
+            return
+    random_synonym = synonyms[0]
+    random_idx = random.randint(0, len(new_words)-1)
+    new_words.insert(random_idx, random_synonym)
+ 
+ 
+# Paths to your CSV files
+input_csv_file_path = "train.csv"
+output_csv_file_path = "augmented_training_data_4_005.csv"
+
+create_augmented_dataset(input_csv_file_path, output_csv_file_path)
 
 
-# Path to your CSV file
-csv_file_path = "aug_train.csv"
-
-create_augmented_dataset(csv_file_path)
-     
-     

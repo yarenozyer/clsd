@@ -28,12 +28,12 @@ def detect_stopwords():
     
     
 def tokenize_tweet(tweet):
-    tweet = normalizer.normalize(tweet)
+    #tweet = normalizer.normalize(tweet)
     tokens = word_tokenize(tweet)
     stop_words = detect_stopwords()
     normalized_tokens = [token.lower() for token in tokens]
     filtered_tokens = [token for token in normalized_tokens if (token not in stop_words and not token.startswith("http"))]
-    filtered_tokens = [stemmer.stemWord(token) for token in filtered_tokens]
+    #filtered_tokens = [stemmer.stemWord(token) for token in filtered_tokens]
     return filtered_tokens
 
 def extract_features_tfidf_ngram(train_tweets, test_tweets):
@@ -104,7 +104,7 @@ def svm_for_target(tweets_train, stances_train, tweets_test, stances_test, targe
     print(target + " Accuracy:", accuracy*100)
     print(target + " F Macro: ", f_macro*100)
     # print(target + " F1-Score (Negative Class):", f1_positive * 100)
-    # print(target + " F1-Score (Positive Class):", f1_negative * 100)
+    # print(target + " F1-Score (Positive Class):",  f1_negative * 100)
     # print(target + " F1-Score (None Class):", f1_none * 100)
     
 def svm_all_targets(tweets_train, tweets_test, stances_train, stances_test, targets):
@@ -186,13 +186,9 @@ def download(model_name):
   return tokenizer, model
    
 
-# download model for English -> Romance
-#tmp_lang_tokenizer, tmp_lang_model = download("Helsinki-NLP/opus-mt-en-trk")
+tweets_train, stances_train, all_tweets_train, all_stances_train = t_tweets('google_translate_train_aug_4_005.csv', "ANSI")
 
-
-tweets_train, stances_train, all_tweets_train, all_stances_train = t_tweets('gpt_train.csv', "ANSI")
-
-tweets_test, stances_test, all_tweets_test, all_stances_test = t_tweets('gpt_test.csv', "ANSI")
+tweets_test, stances_test, all_tweets_test, all_stances_test = t_tweets('google_translate_test.csv', "ANSI")
 
 
 svm_for_target(tweets_train, stances_train, tweets_test, stances_test, "Atheism")
