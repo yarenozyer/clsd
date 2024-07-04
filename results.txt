@@ -493,3 +493,424 @@ F_FAV =  59.64912280701754
 F_NEG =  76.17765814266487
 F_AVG =  67.91339047484121
 
+
+tr-no see
+parsing
+Training
+Evaluating Results
+Combined Fenerbahçe Accuracy: 28.97727272727273
+Combined Fenerbahçe F Macro: 22.60007820519087
+Combined Galatasaray Accuracy: 33.89199255121043
+Combined Galatasaray F Macro: 24.154016445287795
+F_FAV =  15.987460815047019
+F_NEG =  54.45829338446788
+F_AVG =  35.22287709975745
+
+
+parsing
+Training
+FOLD 0
+Combined 0 Accuracy: 68.07511737089203
+Combined 0 F Macro: 68.06878306878308
+F_FAV =  68.51851851851852
+F_NEG =  67.61904761904762
+F_AVG =  68.06878306878308
+FOLD 1
+Combined 1 Accuracy: 84.50704225352112
+Combined 1 F Macro: 84.49473893190391
+F_FAV =  84.93150684931507
+F_NEG =  84.05797101449276
+F_AVG =  84.49473893190391
+FOLD 2
+Combined 2 Accuracy: 83.56807511737088
+Combined 2 F Macro: 83.56662625371982
+F_FAV =  83.72093023255813
+F_NEG =  83.41232227488152
+F_AVG =  83.56662625371982
+FOLD 3
+Combined 3 Accuracy: 85.44600938967136
+Combined 3 F Macro: 85.43445172390973
+F_FAV =  85.84474885844749
+F_NEG =  85.02415458937197
+F_AVG =  85.43445172390973
+FOLD 4
+Combined 4 Accuracy: 83.56807511737088
+Combined 4 F Macro: 83.56662625371982
+F_FAV =  83.72093023255813
+F_NEG =  83.41232227488152
+F_AVG =  83.56662625371982
+
+Combined Fenerbahçe Accuracy: 28.219696969696972
+Combined Fenerbahçe F Macro: 20.897435897435898
+Combined Galatasaray Accuracy: 37.05772811918063
+Combined Galatasaray F Macro: 24.98184372742834
+F_FAV =  12.191103789126851
+F_NEG =  57.01191567369387
+F_AVG =  34.60150973141036
+
+unigram 
+Combined 0 Accuracy: 65.25821596244131
+Combined 0 F Macro: 64.69086021505377
+F_FAV =  69.16666666666667
+F_NEG =  60.21505376344085
+F_AVG =  64.69086021505377
+FOLD 1
+Combined 1 Accuracy: 69.95305164319248
+Combined 1 F Macro: 69.46236559139784
+F_FAV =  73.33333333333333
+F_NEG =  65.59139784946237
+F_AVG =  69.46236559139784
+FOLD 2
+Combined 2 Accuracy: 66.66666666666666
+Combined 2 F Macro: 65.89694441312437
+F_FAV =  71.02040816326532
+F_NEG =  60.773480662983424
+F_AVG =  65.89694441312437
+FOLD 3
+Combined 3 Accuracy: 65.25821596244131
+Combined 3 F Macro: 64.40379403794039
+F_FAV =  69.91869918699186
+F_NEG =  58.88888888888889
+F_AVG =  64.40379403794037
+FOLD 4
+Combined 4 Accuracy: 67.13615023474179
+Combined 4 F Macro: 66.92546583850931
+F_FAV =  69.56521739130433
+F_NEG =  64.28571428571429
+F_AVG =  66.92546583850931
+
+ngram
+Combined 0 Accuracy: 83.09859154929578
+Combined 0 F Macro: 83.08927311220889
+F_FAV =  82.6923076923077
+F_NEG =  83.48623853211008
+F_AVG =  83.08927311220889
+FOLD 1
+Combined 1 Accuracy: 86.3849765258216
+Combined 1 F Macro: 86.38377603879644
+F_FAV =  86.51162790697676
+F_NEG =  86.25592417061611
+F_AVG =  86.38377603879644
+FOLD 2
+Combined 2 Accuracy: 81.2206572769953
+Combined 2 F Macro: 81.18706942236354
+F_FAV =  81.98198198198197
+F_NEG =  80.39215686274511
+F_AVG =  81.18706942236355
+FOLD 3
+Combined 3 Accuracy: 83.09859154929578
+Combined 3 F Macro: 83.08031774051192
+F_FAV =  83.63636363636364
+F_NEG =  82.52427184466018
+F_AVG =  83.08031774051192
+FOLD 4
+Combined 4 Accuracy: 86.85446009389672
+Combined 4 F Macro: 86.85417034032798
+F_FAV =  86.79245283018868
+F_NEG =  86.91588785046729
+F_AVG =  86.85417034032798
+
+ngram 
+FOLD 0
+Combined 0 Accuracy: 81.30841121495327
+Combined 0 F Macro: 81.3067784765898
+F_FAV =  81.48148148148148
+F_NEG =  81.13207547169812
+F_AVG =  81.3067784765898
+FOLD 1
+Combined 1 Accuracy: 84.11214953271028
+Combined 1 F Macro: 84.10659676714722
+F_FAV =  83.8095238095238
+F_NEG =  84.40366972477065
+F_AVG =  84.10659676714722
+FOLD 2
+Combined 2 Accuracy: 84.11214953271028
+Combined 2 F Macro: 84.08991515787632
+F_FAV =  84.68468468468468
+F_NEG =  83.49514563106797
+F_AVG =  84.08991515787633
+FOLD 3
+Combined 3 Accuracy: 89.7196261682243
+Combined 3 F Macro: 89.71603320227175
+F_FAV =  89.52380952380952
+F_NEG =  89.90825688073394
+F_AVG =  89.71603320227173
+FOLD 4
+Combined 4 Accuracy: 80.37383177570094
+Combined 4 F Macro: 80.12383900928792
+F_FAV =  82.35294117647058
+F_NEG =  77.89473684210525
+F_AVG =  80.12383900928792
+FOLD 5
+Combined 5 Accuracy: 82.0754716981132
+Combined 5 F Macro: 82.07387627948376
+F_FAV =  81.9047619047619
+F_NEG =  82.24299065420561
+F_AVG =  82.07387627948376
+FOLD 6
+Combined 6 Accuracy: 82.0754716981132
+Combined 6 F Macro: 82.06110269885099
+F_FAV =  82.56880733944955
+F_NEG =  81.55339805825243
+F_AVG =  82.06110269885099
+FOLD 7
+Combined 7 Accuracy: 87.73584905660378
+Combined 7 F Macro: 87.72601763605594
+F_FAV =  88.07339449541284
+F_NEG =  87.37864077669903
+F_AVG =  87.72601763605594
+FOLD 8
+Combined 8 Accuracy: 81.13207547169812
+Combined 8 F Macro: 81.12535612535612
+F_FAV =  81.48148148148148
+F_NEG =  80.76923076923077
+F_AVG =  81.12535612535612
+FOLD 9
+Combined 9 Accuracy: 86.79245283018868
+Combined 9 F Macro: 86.77361853832441
+F_FAV =  87.27272727272727
+F_NEG =  86.27450980392156
+F_AVG =  86.77361853832441
+
+unigram
+Combined 0 Accuracy: 66.35514018691589
+Combined 0 F Macro: 65.68068424803992
+Target 'Fenerbahçe' Accuracy: 61.82
+Target 'Fenerbahçe' F Macro: 61.62
+Target 'Galatasaray' Accuracy: 71.15
+Target 'Galatasaray' F Macro: 69.80
+FOLD 1
+Combined 1 Accuracy: 65.42056074766354
+Combined 1 F Macro: 64.98009730207872
+Target 'Fenerbahçe' Accuracy: 59.32
+Target 'Fenerbahçe' F Macro: 59.03
+Target 'Galatasaray' Accuracy: 72.92
+Target 'Galatasaray' F Macro: 72.33
+FOLD 2
+Combined 2 Accuracy: 65.42056074766354
+Combined 2 F Macro: 64.62967926382561
+Target 'Fenerbahçe' Accuracy: 63.64
+Target 'Fenerbahçe' F Macro: 61.48
+Target 'Galatasaray' Accuracy: 67.31
+Target 'Galatasaray' F Macro: 67.20
+FOLD 3
+Combined 3 Accuracy: 70.09345794392523
+Combined 3 F Macro: 69.64539007092199
+Target 'Fenerbahçe' Accuracy: 71.15
+Target 'Fenerbahçe' F Macro: 70.62
+Target 'Galatasaray' Accuracy: 69.09
+Target 'Galatasaray' F Macro: 68.72
+FOLD 4
+Combined 4 Accuracy: 65.42056074766354
+Combined 4 F Macro: 63.588705968913814
+Target 'Fenerbahçe' Accuracy: 66.67
+Target 'Fenerbahçe' F Macro: 62.50
+Target 'Galatasaray' Accuracy: 64.41
+Target 'Galatasaray' F Macro: 63.74
+FOLD 5
+Combined 5 Accuracy: 64.15094339622641
+Combined 5 F Macro: 63.94557823129252
+Target 'Fenerbahçe' Accuracy: 63.64
+Target 'Fenerbahçe' F Macro: 62.64
+Target 'Galatasaray' Accuracy: 64.71
+Target 'Galatasaray' F Macro: 64.69
+FOLD 6
+Combined 6 Accuracy: 68.86792452830188
+Combined 6 F Macro: 68.73156342182891
+Target 'Fenerbahçe' Accuracy: 64.29
+Target 'Fenerbahçe' F Macro: 63.87
+Target 'Galatasaray' Accuracy: 74.00
+Target 'Galatasaray' F Macro: 73.99
+FOLD 7
+Combined 7 Accuracy: 71.69811320754717
+Combined 7 F Macro: 70.85777126099705
+Target 'Fenerbahçe' Accuracy: 72.34
+Target 'Fenerbahçe' F Macro: 71.52
+Target 'Galatasaray' Accuracy: 71.19
+Target 'Galatasaray' F Macro: 70.33
+FOLD 8
+Combined 8 Accuracy: 58.490566037735846
+Combined 8 F Macro: 57.7536231884058
+Target 'Fenerbahçe' Accuracy: 55.77
+Target 'Fenerbahçe' F Macro: 54.40
+Target 'Galatasaray' Accuracy: 61.11
+Target 'Galatasaray' F Macro: 60.77
+FOLD 9
+Combined 9 Accuracy: 68.86792452830188
+Combined 9 F Macro: 68.52901484480431
+Target 'Fenerbahçe' Accuracy: 63.27
+Target 'Fenerbahçe' F Macro: 62.50
+Target 'Galatasaray' Accuracy: 73.68
+Target 'Galatasaray' F Macro: 73.55
+0.6583421078011087
+
+FOLD 0
+Combined 0 Accuracy: 81.30841121495327
+Combined 0 F Macro: 81.3067784765898
+Target 'Fenerbahçe' Accuracy: 80.00
+Target 'Fenerbahçe' F Macro: 79.89
+Target 'Galatasaray' Accuracy: 82.69
+Target 'Galatasaray' F Macro: 82.53
+FOLD 1
+Combined 1 Accuracy: 84.11214953271028
+Combined 1 F Macro: 84.10659676714722
+Target 'Fenerbahçe' Accuracy: 79.66
+Target 'Fenerbahçe' F Macro: 79.61
+Target 'Galatasaray' Accuracy: 89.58
+Target 'Galatasaray' F Macro: 89.58
+FOLD 2
+Combined 2 Accuracy: 84.11214953271028
+Combined 2 F Macro: 84.08991515787632
+Target 'Fenerbahçe' Accuracy: 78.18
+Target 'Fenerbahçe' F Macro: 77.82
+Target 'Galatasaray' Accuracy: 90.38
+Target 'Galatasaray' F Macro: 90.35
+FOLD 3
+Combined 3 Accuracy: 89.7196261682243
+Combined 3 F Macro: 89.71603320227175
+Target 'Fenerbahçe' Accuracy: 84.62
+Target 'Fenerbahçe' F Macro: 84.41
+Target 'Galatasaray' Accuracy: 94.55
+Target 'Galatasaray' F Macro: 94.52
+FOLD 4
+Combined 4 Accuracy: 80.37383177570094
+Combined 4 F Macro: 80.12383900928792
+Target 'Fenerbahçe' Accuracy: 70.83
+Target 'Fenerbahçe' F Macro: 68.12
+Target 'Galatasaray' Accuracy: 88.14
+Target 'Galatasaray' F Macro: 88.12
+FOLD 5
+Combined 5 Accuracy: 82.0754716981132
+Combined 5 F Macro: 82.07387627948376
+Target 'Fenerbahçe' Accuracy: 80.00
+Target 'Fenerbahçe' F Macro: 79.57
+Target 'Galatasaray' Accuracy: 84.31
+Target 'Galatasaray' F Macro: 83.81
+FOLD 6
+Combined 6 Accuracy: 82.0754716981132
+Combined 6 F Macro: 82.06110269885099
+Target 'Fenerbahçe' Accuracy: 83.93
+Target 'Fenerbahçe' F Macro: 83.67
+Target 'Galatasaray' Accuracy: 80.00
+Target 'Galatasaray' F Macro: 79.87
+FOLD 7
+Combined 7 Accuracy: 87.73584905660378
+Combined 7 F Macro: 87.72601763605594
+Target 'Fenerbahçe' Accuracy: 89.36
+Target 'Fenerbahçe' F Macro: 89.36
+Target 'Galatasaray' Accuracy: 86.44
+Target 'Galatasaray' F Macro: 86.41
+FOLD 8
+Combined 8 Accuracy: 81.13207547169812
+Combined 8 F Macro: 81.12535612535612
+Target 'Fenerbahçe' Accuracy: 76.92
+Target 'Fenerbahçe' F Macro: 76.89
+Target 'Galatasaray' Accuracy: 85.19
+Target 'Galatasaray' F Macro: 85.19
+FOLD 9
+Combined 9 Accuracy: 86.79245283018868
+Combined 9 F Macro: 86.77361853832441
+Target 'Fenerbahçe' Accuracy: 87.76
+Target 'Fenerbahçe' F Macro: 87.75
+Target 'Galatasaray' Accuracy: 85.96
+Target 'Galatasaray' F Macro: 85.93
+0.8391031338912441
+
+ngram without none
+Combined Fenerbahçe Accuracy: 49.24242424242424
+Combined Fenerbahçe F Macro: 43.524904214559385
+Combined Galatasaray Accuracy: 52.7001862197393
+Combined Galatasaray F Macro: 44.813885742029456
+F_FAV =  24.78386167146974
+F_NEG =  63.64902506963789
+F_AVG =  44.21644337055382
+
+ngram merged
+
+Combined 0 F Macro: 78.47459109595032
+Target 'Fenerbahçe' F Macro: 78.12 
+Target 'Galatasaray' F Macro: 78.46
+FOLD 1
+Combined 1 F Macro: 82.23678462210573
+Target 'Fenerbahçe' F Macro: 77.94
+Target 'Galatasaray' F Macro: 87.50
+FOLD 2
+Combined 2 F Macro: 84.06203452203627
+Target 'Fenerbahçe' F Macro: 77.58
+Target 'Galatasaray' F Macro: 90.35
+FOLD 3
+Combined 3 F Macro: 88.78406708595388
+Target 'Fenerbahçe' F Macro: 84.59
+Target 'Galatasaray' F Macro: 92.71
+FOLD 4
+Combined 4 F Macro: 79.21963276836159
+Target 'Fenerbahçe' F Macro: 75.81
+Target 'Galatasaray' F Macro: 81.36
+FOLD 5
+Combined 5 F Macro: 83.96083667111705
+Target 'Fenerbahçe' F Macro: 85.05
+Target 'Galatasaray' F Macro: 81.91
+FOLD 6
+Combined 6 F Macro: 81.12535612535612
+Target 'Fenerbahçe' F Macro: 81.94
+Target 'Galatasaray' F Macro: 79.87
+FOLD 7
+Combined 7 F Macro: 86.77361853832441
+Target 'Fenerbahçe' F Macro: 87.23
+Target 'Galatasaray' F Macro: 86.41
+FOLD 8
+Combined 8 F Macro: 82.07387627948376
+Target 'Fenerbahçe' F Macro: 78.84
+Target 'Galatasaray' F Macro: 85.19
+FOLD 9
+Combined 9 F Macro: 83.92650075818393
+Target 'Fenerbahçe' F Macro: 83.67
+Target 'Galatasaray' F Macro: 84.13
+AVG 0.8306372984668731
+FENER 0.8478717915341092
+GALATA 0.8107677669842671
+
+unigram merged
+FOLD 0
+Combined 0 F Macro: 62.350457424349045
+Target 'Fenerbahçe' F Macro: 54.30
+Target 'Galatasaray' F Macro: 70.88
+FOLD 1
+Combined 1 F Macro: 62.350457424349045
+Target 'Fenerbahçe' F Macro: 54.18
+Target 'Galatasaray' F Macro: 72.33
+FOLD 2
+Combined 2 F Macro: 63.95390070921986
+Target 'Fenerbahçe' F Macro: 58.33
+Target 'Galatasaray' F Macro: 69.19
+FOLD 3
+Combined 3 F Macro: 71.91601049868765
+Target 'Fenerbahçe' F Macro: 72.42
+Target 'Galatasaray' F Macro: 71.36
+FOLD 4
+Combined 4 F Macro: 64.16870305004979
+Target 'Fenerbahçe' F Macro: 60.75
+Target 'Galatasaray' F Macro: 65.86
+FOLD 5
+Combined 5 F Macro: 65.84317937701397
+Target 'Fenerbahçe' F Macro: 60.51
+Target 'Galatasaray' F Macro: 70.54
+FOLD 6
+Combined 6 F Macro: 67.87878787878788
+Target 'Fenerbahçe' F Macro: 65.80
+Target 'Galatasaray' F Macro: 69.99
+FOLD 7
+Combined 7 F Macro: 66.30642085187539
+Target 'Fenerbahçe' F Macro: 67.13
+Target 'Galatasaray' F Macro: 65.62
+FOLD 8
+Combined 8 F Macro: 57.52276867030965
+Target 'Fenerbahçe' F Macro: 50.24
+Target 'Galatasaray' F Macro: 62.91
+FOLD 9
+Combined 9 F Macro: 67.7407805227354
+Target 'Fenerbahçe' F Macro: 67.00
+Target 'Galatasaray' F Macro: 68.33
+AVG 0.6500314664073776
+FENER 0.6870126606666943
+GALATA 0.6106834014677224
